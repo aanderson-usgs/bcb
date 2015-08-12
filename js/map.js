@@ -29,45 +29,45 @@
     zIndex: 1
   });
   
-  var elevation = L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map', {
+  var elevation = L.tileLayer.wms('https://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map', {
     format: 'image/png',
     zIndex: 1,
     layers: 'topo'
   });
   
   var padus = L.esri.tiledMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer',
+    url: 'https://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer',
     zIndex: 1001
   });
   
   var padusOwner = L.esri.tiledMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer',
+    url: 'https://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer',
     zIndex: 1000
   });
   
   var landCoverClass = L.esri.dynamicMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Class_Landuse/MapServer',
+    url: 'https://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Class_Landuse/MapServer',
     zIndex: 1000
   });
   
   var landCoverFormation = L.esri.dynamicMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Formation_Landuse/MapServer',
+    url: 'https://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Formation_Landuse/MapServer',
     zIndex: 1000
   });
   
     var ecoregions = L.esri.dynamicMapLayer({
-    url: 'http://geodata.epa.gov/arcgis/rest/services/ORD/USEPA_Ecoregions_Level_III_and_IV/MapServer', 
+    url: 'https://geodata.epa.gov/arcgis/rest/services/ORD/USEPA_Ecoregions_Level_III_and_IV/MapServer', 
     layers:[11],
     zIndex: 1000
   })
   
     var huc12 = L.esri.dynamicMapLayer({
-    url: 'http://watersgeo.epa.gov/ArcGIS/rest/services/OW/WBD_WMERC/MapServer', 
+    url: 'https://watersgeo.epa.gov/ArcGIS/rest/services/OW/WBD_WMERC/MapServer', 
     layers:[0],
     zIndex: 1000
   })
   
-  var lme = L.tileLayer.wms('http://geo.vliz.be/geoserver/MarineRegions/wms', {
+  var lme = L.tileLayer.wms('https://geo.vliz.be/geoserver/MarineRegions/wms', {
     format: 'image/png',
     zIndex: 1000,
     layers: 'eez_iho_union_v2'
