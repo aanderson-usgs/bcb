@@ -29,29 +29,29 @@
     zIndex: 1
   });
   
-  var elevation = L.tileLayer.wms('https://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map', {
+  var elevation = L.tileLayer.wms('http://gmrt.marine-geo.org/cgi-bin/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map', {
     format: 'image/png',
     zIndex: 1,
     layers: 'topo'
   });
   
   var padus = L.esri.tiledMapLayer({
-    url: 'https://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer',
+    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer',
     zIndex: 1001
   });
   
   var padusOwner = L.esri.tiledMapLayer({
-    url: 'https://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer',
+    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer',
     zIndex: 1000
   });
   
   var landCoverClass = L.esri.dynamicMapLayer({
-    url: 'https://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Class_Landuse/MapServer',
+    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Class_Landuse/MapServer',
     zIndex: 1000
   });
   
   var landCoverFormation = L.esri.dynamicMapLayer({
-    url: 'https://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Formation_Landuse/MapServer',
+    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Formation_Landuse/MapServer',
     zIndex: 1000
   });
   
@@ -67,7 +67,7 @@
     zIndex: 1000
   })
   
-  var lme = L.tileLayer.wms('https://geo.vliz.be/geoserver/MarineRegions/wms', {
+  var lme = L.tileLayer.wms('http://geo.vliz.be/geoserver/MarineRegions/wms', {
     format: 'image/png',
     zIndex: 1000,
     layers: 'eez_iho_union_v2'
