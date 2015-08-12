@@ -1,0 +1,31 @@
+{
+  "name": "gmna",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.html",
+  "dependencies": {
+    "gulp": "^3.8.11"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-htmlhint": "^0.1.1",
+    "gulp-jshint": "^1.10.0",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-uglify": "^1.1.0"
+  },
+  "scripts": {
+    "build": "gulp",
+    "start": "python -m SimpleHTTPServer 8888"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UW-Macrostrat/gmna-app.git"
+  },
+  "author": "John J Czaplewski <jczaplew@gmail.com>",
+  "license": "CC0",
+  "bugs": {
+    "url": "https://github.com/UW-Macrostrat/gmna-app/issues"
+  },
+  "homepage": "https://github.com/UW-Macrostrat/gmna-app"
+}
