@@ -1,6 +1,6 @@
 (function() {
   var apiUrl = (window.location.hostname === "localhost") ? "http://localhost:5000" : window.location.origin,
-      tileUrl = (window.location.hostname === "localhost") ? "https://dev.macrostrat.org" : window.location.origin;
+      tileUrl = (window.location.hostname === "localhost") ? "http://dev.macrostrat.org" : window.location.origin;
 
   var map = L.map('map', {
     // We have a different attribution control...
@@ -184,7 +184,7 @@
               });
 
               if (stratNames.length > 0) {
-                $.getJSON("https://dev.macrostrat.org/mdd/api/v1/articles?q=" + stratNames.join(","), function(res) {
+                $.getJSON("http://dev.macrostrat.org/mdd/api/v1/articles?q=" + stratNames.join(","), function(res) {
                   if (res.results.results.length > 0) {
                     var parsed = {
                       journals: []
@@ -512,7 +512,7 @@
     $(".opacity-adjuster").css("display", "none");
   }
 
-  /* Via https://gist.github.com/missinglink/7620340 */
+  /* Via http://gist.github.com/missinglink/7620340 */
   L.Map.prototype.panToOffset = function (latlng, offset, options) {
     var x = this.latLngToContainerPoint(latlng).x - offset[0],
         y = this.latLngToContainerPoint(latlng).y - offset[1],
