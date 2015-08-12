@@ -20,12 +20,12 @@
   var hash = new L.Hash(map);
 
   // Add our basemap
-  var stamen = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
+  var stamen = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
     zIndex: 1
   });
   map.addLayer(stamen);
 
-  var satellite = L.tileLayer('https://{s}.tiles.mapbox.com/v3/jczaplewski.ld2ndl61/{z}/{x}/{y}.png', {
+  var satellite = L.tileLayer('http://{s}.tiles.mapbox.com/v3/jczaplewski.ld2ndl61/{z}/{x}/{y}.png', {
     zIndex: 1
   });
   
@@ -56,13 +56,13 @@
   });
   
     var ecoregions = L.esri.dynamicMapLayer({
-    url: 'https://geodata.epa.gov/arcgis/rest/services/ORD/USEPA_Ecoregions_Level_III_and_IV/MapServer', 
+    url: 'http://geodata.epa.gov/arcgis/rest/services/ORD/USEPA_Ecoregions_Level_III_and_IV/MapServer', 
     layers:[11],
     zIndex: 1000
   })
   
     var huc12 = L.esri.dynamicMapLayer({
-    url: 'https://watersgeo.epa.gov/ArcGIS/rest/services/OW/WBD_WMERC/MapServer', 
+    url: 'http://watersgeo.epa.gov/ArcGIS/rest/services/OW/WBD_WMERC/MapServer', 
     layers:[0],
     zIndex: 1000
   })
