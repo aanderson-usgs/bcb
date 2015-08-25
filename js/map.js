@@ -54,23 +54,30 @@
     url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Formation_Landuse/MapServer',
     zIndex: 1000
   });
-  
-    var ecoregions = L.esri.dynamicMapLayer({
-    url: 'http://geodata.epa.gov/arcgis/rest/services/ORD/USEPA_Ecoregions_Level_III_and_IV/MapServer', 
-    layers:[11],
-    zIndex: 1000
-  })
-  
-    var huc12 = L.esri.dynamicMapLayer({
-    url: 'http://watersgeo.epa.gov/ArcGIS/rest/services/OW/WBD_WMERC/MapServer', 
-    layers:[0],
-    zIndex: 1000
-  })
-  
-  var lme = L.tileLayer.wms('http://geo.vliz.be/geoserver/MarineRegions/wms', {
+
+  var ecoregions = L.tileLayer.wms('https://my-beta.usgs.gov/geoserver/bcb/wms', {
     format: 'image/png',
     zIndex: 1000,
-    layers: 'eez_iho_union_v2'
+    transparent: "true",
+    layers: 'ecoregion_geom',
+    //We might set the scale dependancy in the application(uncomment the following line) or on GeoServer(comment out the following line). 
+    //maxZoom: 8
+  });
+  
+  var lme = L.tileLayer.wms('https://my-beta.usgs.gov/geoserver/bcb/wms', {
+    format: 'image/png',
+    zIndex: 1000,
+    transparent: "true",
+    layers: 'lme_geom'
+  });
+
+  var huc12 = L.tileLayer.wms('https://my-beta.usgs.gov/geoserver/bcb/wms', {
+    format: 'image/png',
+    zIndex: 1000,
+    transparent: "true",
+    layers: 'huc12_geom',
+    //We might set the scale dependancy in the application(uncomment the following line) or on GeoServer(comment out the following line). 
+    //minZoom: 8
   });
 
 
