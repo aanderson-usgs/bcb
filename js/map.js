@@ -3,10 +3,10 @@
       tileUrl = (window.location.hostname === "localhost") ? "http://dev.macrostrat.org" : window.location.origin;
 
   var map = L.map('map', {
-    // We have a different attribution control...
-    attributionControl: false,
-    minZoom: 2
+  zoomControl:false
   });
+ 
+  L.control.zoomslider().addTo(map);
 
   // If there is a hash location, go there immediately
   if (window.location.hash.length > 3) {
@@ -44,17 +44,41 @@
     url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer',
     zIndex: 1000
   });
-  
+     
   var landCoverClass = L.esri.dynamicMapLayer({
     url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Class_Landuse/MapServer',
-    zIndex: 1000
+    zIndex: 1000,
+    minZoom: 1,
+    maxZoom: 5	
   });
   
   var landCoverFormation = L.esri.dynamicMapLayer({
     url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Formation_Landuse/MapServer',
-    zIndex: 1000
+    zIndex: 1000,
+    minZoom: 6,
+    maxZoom: 7
   });
 
+  var landCoverMacro = L.esri.dynamicMapLayer({
+    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Macrogroup_Landuse/MapServer',
+    zIndex: 1000,
+    minZoom: 8,
+    maxZoom: 9 	
+  });
+  
+  var landCoverEco = L.esri.dynamicMapLayer({
+    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_Ecological_Systems_Landuse/MapServer',
+    zIndex: 1000,
+    minZoom: 10,
+    maxZoom: 18 
+  });
+
+  var landCoverGroup = new L.LayerGroup();
+  landCoverGroup.addLayer(landCoverClass);
+  landCoverGroup.addLayer(landCoverFormation);
+  landCoverGroup.addLayer(landCoverMacro);
+  landCoverGroup.addLayer(landCoverEco);
+  
   var ecoregions = L.tileLayer.wms('https://my-beta.usgs.gov/geoserver/bcb/wms', {
     format: 'image/png',
     zIndex: 1000,
@@ -269,6 +293,7 @@
   $(".menu-link").click(function(d) {
     d.preventDefault();
     toggleMenuBar();
+    landCoverFunction();
   });
 
   // Handle interaction with layers
@@ -297,12 +322,9 @@
           case 'padusOwner' :
             $(this).addClass("fa-toggle-off").removeClass("fa-toggle-on")
             return map.removeLayer(padusOwner);
-          case 'landCoverClass' :
+          case 'landCoverGroup' :
             $(this).addClass("fa-toggle-off").removeClass("fa-toggle-on")
-            return map.removeLayer(landCoverClass);
-          case 'landCoverFormation' :
-            $(this).addClass("fa-toggle-off").removeClass("fa-toggle-on")
-            return map.removeLayer(landCoverFormation);
+            return landCoverGroup.clearLayers();
           case 'ecoregions' :
             $(this).addClass("fa-toggle-off").removeClass("fa-toggle-on")
             return map.removeLayer(ecoregions);
@@ -335,12 +357,9 @@
           case 'padusOwner' :
             $(this).addClass("fa-toggle-on").removeClass("fa-toggle-off")
             return map.addLayer(padusOwner);
-          case 'landCoverClass' :
+          case 'landCoverGroup' :
             $(this).addClass("fa-toggle-on").removeClass("fa-toggle-off")
-            return map.addLayer(landCoverClass);
-          case 'landCoverFormation' :
-            $(this).addClass("fa-toggle-on").removeClass("fa-toggle-off")
-            return map.addLayer(landCoverFormation);
+            return landCoverGroup.addTo(map);
           case 'ecoregions' :
             $(this).addClass("fa-toggle-on").removeClass("fa-toggle-off")
             return map.addLayer(ecoregions);
@@ -373,7 +392,22 @@
   // And finally, make things fast
   var attachFastClick = Origami.fastclick;
   attachFastClick(document.getElementsByClassName("not-map")[0]);
-  
+
+  function landCoverFunction(){
+	if (map.getZoom() < 6) {
+      document.getElementById('landCoverLabel').innerHTML = 'GAP Class (Zoom: ' + map.getZoom() + ')';
+    }
+	else if (map.getZoom() < 8) {
+      document.getElementById('landCoverLabel').innerHTML = 'GAP Formation (Zoom: ' + map.getZoom() + ')';
+    }
+	else if (map.getZoom() < 10) {
+      document.getElementById('landCoverLabel').innerHTML = 'GAP Macrogroup (Zoom: ' + map.getZoom() + ')';
+    }
+	else { 
+      document.getElementById('landCoverLabel').innerHTML = 'GAP Ecological System (Zoom: ' + map.getZoom() + ')';
+    }
+  }
+
   function removeBaseMaps() {
     map.removeLayer(stamen);
     $($("#stamen").children(".layer-control")[0]).removeClass("fa-toggle-on");
