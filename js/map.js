@@ -23,7 +23,6 @@
   var stamen = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
     zIndex: 1
   });
-  map.addLayer(stamen);
 
   var satellite = L.tileLayer('http://{s}.tiles.mapbox.com/v3/jczaplewski.ld2ndl61/{z}/{x}/{y}.png', {
     zIndex: 1
@@ -44,6 +43,12 @@
     url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer',
     zIndex: 1000
   });
+  
+  var esriOceans = L.esri.tiledMapLayer({
+    url: 'http://services.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer',
+    zIndex: 1000
+  });
+  map.addLayer(esriOceans);
      
   var landCoverClass = L.esri.dynamicMapLayer({
     url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Class_Landuse/MapServer',
@@ -78,6 +83,7 @@
   landCoverGroup.addLayer(landCoverFormation);
   landCoverGroup.addLayer(landCoverMacro);
   landCoverGroup.addLayer(landCoverEco);
+  map.addLayer(landCoverGroup);
   
   var ecoregions = L.tileLayer.wms('https://my-beta.usgs.gov/geoserver/bcb/wms', {
     format: 'image/png',
@@ -343,6 +349,9 @@
           case 'elevation' :
             $(this).addClass("fa-toggle-off").removeClass("fa-toggle-on")
             return map.removeLayer(elevation);
+          case 'esroOceans' :
+            $(this).addClass("fa-toggle-off").removeClass("fa-toggle-on")
+            return map.removeLayer(esriOceans);
           default :
             console.log("hmmmm");
         }
@@ -381,6 +390,11 @@
             removeBaseMaps()
             $(this).addClass("fa-toggle-on").removeClass("fa-toggle-off")
             return map.addLayer(elevation);
+          case 'esriOceans' :
+            removeBaseMaps()
+            $(this).addClass("fa-toggle-on").removeClass("fa-toggle-off")
+            return map.addLayer(esriOceans);
+
           default :
             console.log("hmmmm");
         }
@@ -395,16 +409,16 @@
 
   function landCoverFunction(){
 	if (map.getZoom() < 6) {
-      document.getElementById('landCoverLabel').innerHTML = 'GAP Class (Zoom: ' + map.getZoom() + ')';
+      document.getElementById('landCoverLabel').innerHTML = 'GAP Class';
     }
 	else if (map.getZoom() < 8) {
-      document.getElementById('landCoverLabel').innerHTML = 'GAP Formation (Zoom: ' + map.getZoom() + ')';
+      document.getElementById('landCoverLabel').innerHTML = 'GAP Formation';
     }
 	else if (map.getZoom() < 10) {
-      document.getElementById('landCoverLabel').innerHTML = 'GAP Macrogroup (Zoom: ' + map.getZoom() + ')';
+      document.getElementById('landCoverLabel').innerHTML = 'GAP Macrogroup';
     }
 	else { 
-      document.getElementById('landCoverLabel').innerHTML = 'GAP Ecological System (Zoom: ' + map.getZoom() + ')';
+      document.getElementById('landCoverLabel').innerHTML = 'GAP Ecological System';
     }
   }
 
@@ -418,6 +432,9 @@
     map.removeLayer(elevation);
     $($("#elevation").children(".layer-control")[0]).removeClass("fa-toggle-on");
     $($("#elevation").children(".layer-control")[0]).addClass("fa-toggle-off");
+    map.removeLayer(esriOceans);
+    $($("#esriOceans").children(".layer-control")[0]).removeClass("fa-toggle-on");
+    $($("#esriOceans").children(".layer-control")[0]).addClass("fa-toggle-off");
   }
 
   /* Courtesy of the Alligator http://bl.ocks.org/rgdonohue/8465271 */
