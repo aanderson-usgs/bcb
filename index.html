@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GMNA</title>
+  <title>BCB</title>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Language" content="en">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Maven+Pro&text=macrostrat">
 </head>
 <body>
-
   <div class="container">
     <div id="map"></div>
     <div class="not-map">
@@ -46,14 +45,16 @@
 
       <div id="unit_info_left" class="unit_info">
         <div class="menu-header">
-          <img src="img/logo_small.png"> <div class="title">BCB</div>
+          <img src="img/logo_small.png"> <div class="title">National Biogeographic Map</div>
 
           <div class="close left">x</div>
         </div>
         
         <div class="menu-content">
           <div class="menu-layers">
-            <p style="font-size:20px"><u>Data Layers</u></p>
+            <p style="font-size:20px"><u>Biogeographic Characterization Layers</u></p>
+            <p id="landCoverLabel" style="font-size:20px"><u>this text should change</u></p>
+            <div class="layer" id="landCoverGroup">Land Cover <i class="fa fa-toggle-on layer-control"></i></div>
             <div class="layer" id="padus">PADUS Status <i class="fa fa-toggle-off layer-control"></i><i class="fa fa-sliders layer-control"></i>
 			  <div class="opacity-adjuster">
                 <input id="padus-opacity-slider" type="range">
@@ -61,15 +62,15 @@
               </div>
 			</div>
             <div class="layer" id="padusOwner">PADUS Ownership <i class="fa fa-toggle-off layer-control"></i></div>
-            <div class="layer" id="landCoverClass">GAP Land Cover Class <i class="fa fa-toggle-off layer-control"></i></div>
-            <div class="layer" id="landCoverFormation">GAP Land Cover Formation <i class="fa fa-toggle-off layer-control"></i></div>
-            <div class="layer" id="ecoregions">Omernik Level III Ecoregions <i class="fa fa-toggle-off layer-control"></i></div>
-            <div class="layer" id="huc12">HUC12 Boundaries <i class="fa fa-toggle-off layer-control"></i></div>
-            <div class="layer" id="lme">LMEs <i class="fa fa-toggle-off layer-control"></i></div>
             <p style="font-size:20px"><u>Basemaps</u></p>
             <div class="layer" id="satellite">Satellite <i class="fa fa-toggle-off layer-control"></i></div>
             <div class="layer" id="elevation">Elevation/Bathymetry <i class="fa fa-toggle-off layer-control"></i></div>
-            <div class="layer" id="stamen">Gray Basemap <i class="fa fa-toggle-on layer-control"></i></div>
+            <div class="layer" id="esriOceans">World Oceans <i class="fa fa-toggle-on layer-control"></i></div>
+            <div class="layer" id="stamen">Gray Basemap <i class="fa fa-toggle-off layer-control"></i></div>
+            <p style="font-size:20px"><u>Summarization Regions</u></p>
+            <div class="layer" id="ecoregions">Omernik Level III Ecoregions <i class="fa fa-toggle-off layer-control"></i></div>
+            <div class="layer" id="huc12">HUC12 Boundaries <i class="fa fa-toggle-off layer-control"></i></div>
+            <div class="layer" id="lme">Large Marine Ecosystems(LMEs) <i class="fa fa-toggle-off layer-control"></i></div>
           </div>
         </div>
       </div>
@@ -182,5 +183,9 @@
   <script src="js/libs.js"></script>
   <script src="https://cdn.jsdelivr.net/leaflet.esri/1.0.0/esri-leaflet.js"></script>
   <script async src="js/map.js"></script>
+  <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.css' rel='stylesheet' />
+  <script type="text/javascript" src="../bcb/Leaflet.zoomdisplay-master/dist/leaflet.zoomdisplay-src.js"></script>
+  <link rel="stylesheet" href="../bcb/Leaflet.zoomdisplay-master/dist/leaflet.zoomdisplay.css"/>
 </body>
 </html>
