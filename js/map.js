@@ -1,6 +1,6 @@
 (function() {
-  var apiUrl = (window.location.hostname === "localhost") ? "http://localhost:5000" : window.location.origin,
-      tileUrl = (window.location.hostname === "localhost") ? "http://dev.macrostrat.org" : window.location.origin;
+  var apiUrl = (window.location.hostname === "localhost") ? "https://localhost:5000" : window.location.origin,
+      tileUrl = (window.location.hostname === "localhost") ? "https://dev.macrostrat.org" : window.location.origin;
 
   var map = L.map('map', {
   zoomControl:false
@@ -35,44 +35,44 @@
   });
   
   var padus = L.esri.tiledMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer',
+    url: '//gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer',
     zIndex: 1001
   });
   
   var padusOwner = L.esri.tiledMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer',
+    url: '//gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer',
     zIndex: 1000
   });
   
   var esriOceans = L.esri.tiledMapLayer({
-    url: 'http://services.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer',
+    url: '//services.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer',
     zIndex: 1000
   });
   map.addLayer(esriOceans);
      
   var landCoverClass = L.esri.dynamicMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Class_Landuse/MapServer',
+    url: '//gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Class_Landuse/MapServer',
     zIndex: 1000,
     minZoom: 1,
     maxZoom: 5	
   });
   
   var landCoverFormation = L.esri.dynamicMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Formation_Landuse/MapServer',
+    url: '//gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Formation_Landuse/MapServer',
     zIndex: 1000,
     minZoom: 6,
     maxZoom: 7
   });
 
   var landCoverMacro = L.esri.dynamicMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Macrogroup_Landuse/MapServer',
+    url: '//gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_NVC_Macrogroup_Landuse/MapServer',
     zIndex: 1000,
     minZoom: 8,
     maxZoom: 9 	
   });
   
   var landCoverEco = L.esri.dynamicMapLayer({
-    url: 'http://gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_Ecological_Systems_Landuse/MapServer',
+    url: '//gis1.usgs.gov/arcgis/rest/services/gap/GAP_Land_Cover_Ecological_Systems_Landuse/MapServer',
     zIndex: 1000,
     minZoom: 10,
     maxZoom: 18 
@@ -145,7 +145,7 @@
 
     if (map.getZoom() < 7) {
       // query gmna
-      $.getJSON(apiUrl + "/api/v1/geologic_units?type=gmna&lat=" + d.latlng.lat.toFixed(5) + "&lng=" + d.latlng.lng.toFixed(5), function(data) {
+      $.getJSON(apiUrl + "/gmna?lat=" + d.latlng.lat.toFixed(5) + "&lng=" + d.latlng.lng.toFixed(5), function(data) {
         data = data.success.data[0];
 
         data.ages = (data.min_age === data.max_age) ? data.min_age : data.max_age + " - " + data.min_age;
@@ -158,7 +158,7 @@
       });
     } else {
       // query gmus
-      $.getJSON(apiUrl + "/api/v1/geologic_units?type=gmus&lat=" + d.latlng.lat.toFixed(5) + "&lng=" + d.latlng.lng.toFixed(5), function(data) {
+      $.getJSON(apiUrl + "/gmus?lat=" + d.latlng.lat.toFixed(5) + "&lng=" + d.latlng.lng.toFixed(5), function(data) {
 
         if (data.success.data.length < 1) {
           return;
@@ -349,11 +349,11 @@
           case 'elevation' :
             $(this).addClass("fa-toggle-off").removeClass("fa-toggle-on")
             return map.removeLayer(elevation);
-          case 'esroOceans' :
+          case 'esriOceans' :
             $(this).addClass("fa-toggle-off").removeClass("fa-toggle-on")
             return map.removeLayer(esriOceans);
           default :
-            console.log("hmmmm");
+            console.log("Error in map.js: Unknown layer " + $(this).parent().attr("id"));
         }
       // If it's off, turn it on
       } else {
@@ -396,7 +396,7 @@
             return map.addLayer(esriOceans);
 
           default :
-            console.log("hmmmm");
+            console.log("Error in map.js: Unknown layer " + $(this).parent().attr("id"));
         }
       }
     }
